@@ -1,1 +1,4 @@
-from src.app.api.routers.reports.reports import initial_data
+from src.app.api.routers.reports.reports import (
+    add_investment_account,
+    initial_data,
+)
