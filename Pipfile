@@ -1,0 +1,14 @@
+[packages]
+fastapi = "~=0.93.0"
+pydantic = "~=1.10.6"
+uvicorn = "~=0.20.0"
+aiohttp = "~=3.8.4"
+autoflake = "*"
+beautifulsoup4 = "4.12.2"
+lxml = "4.9.2"
+
+[dev-packages]
+pytest = "~=7.2.2"
+httpx = "~=0.23.3"
+black = "~=23.1.0"
+isort = "*"
