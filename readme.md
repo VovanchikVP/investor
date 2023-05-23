@@ -9,3 +9,8 @@
 
 ### Тесты
 Запуск тестов `pytest`
+
+### Миграции на основе alembic
+Автоматическое создание миграций: `alembic revision --autogenerate -m "init"`
+Применение миграции: `alembic upgrade head`
+Отмена миграции: `alembic downgrade -1 `

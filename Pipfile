@@ -6,6 +6,10 @@ aiohttp = "~=3.8.4"
 autoflake = "*"
 beautifulsoup4 = "4.12.2"
 lxml = "4.9.2"
+pandas = "2.0.1"
+sqlalchemy = "2.0.15"
+alembic = "1.11.1"
+asyncpg = "0.27.0"
 
 [dev-packages]
 pytest = "~=7.2.2"
