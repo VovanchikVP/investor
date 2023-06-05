@@ -36,6 +36,7 @@ class BrokerReportSBERServices:
     SPLIT_FOR_INVESTMENT = "Торговый код: "
     MONEY_MOVEMENT_TABLE = "Движение денежных средств за период"
     SECURITIES_TRANSACTIONS_TABLE = "Сделки купли/продажи ценных бумаг"
+    SECURITIES_DIRECTORY_TABLE = "Справочник Ценных Бумаг**"
     RENAME_COL_MONEY_MOVEMENT_TABLE = {
         "Дата": "date",
         "Описание операции": "name",
@@ -56,6 +57,10 @@ class BrokerReportSBERServices:
         "Комиссия Биржи": "commission_rialto",
         "Номер сделки": "number",
     }
+    RENAME_COL_SECURITIES_DIRECTORY_TABLE = {
+        "Код": "code",
+        "ISIN ценной бумаги": "isin",
+    }
     BASE_PATH = os.path.join(Path(__file__).absolute().parents[3], Path(f"data/broker_reports"))
 
     def __init__(self):
@@ -67,6 +72,7 @@ class BrokerReportSBERServices:
         self.date_generate = None
         self.broker_report = None
         self.broker_name = None
+        self.securities_directory = {}
 
     @classmethod
     async def create(cls, report):
@@ -86,6 +92,7 @@ class BrokerReportSBERServices:
             return None
 
         try:
+            self.securities_directory = await self._prepare_table_info()
             table: pd.DataFrame = await self._prepare_money_movement_table()
             for i in table.to_dict("records"):
                 await OperationServices.add(session, OperationsSchema(**i))
@@ -234,8 +241,18 @@ class BrokerReportSBERServices:
         table["cost_unit"] = table["sum"] / table["quantity"]
         table["cost_unit"] = table["cost_unit"].round(decimals=2)
         table["broker_report_id"] = np.full(len(table), self.broker_report.id)
-
+        table["code"] = table["code"].replace(self.securities_directory)
         return table.drop(["date", "time", "sum"], axis=1)
+
+    async def _prepare_table_info(self) -> dict:
+        """Составление словаря кодов инструментов"""
+        table: pd.DataFrame = self.tables_data.get(self.SECURITIES_DIRECTORY_TABLE)
+        if table is None:
+            return {}
+        table = table[list(self.RENAME_COL_SECURITIES_DIRECTORY_TABLE)].rename(
+            columns=self.RENAME_COL_SECURITIES_DIRECTORY_TABLE
+        )
+        return dict(zip(table["isin"], table["code"]))
 
     @staticmethod
     def convert_datetime_format(data: str) -> datetime:

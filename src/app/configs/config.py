@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     DB_PASSWORD: str = "investor"
     DB_HOST: str = "localhost:5433"
     DB_NAME: str = "investor"
+    BOT_TOKEN: str = "5855409665:AAGAtW8DaGE0zGCi3-BQxnKC1PaKgzLCIvA"
 
 
 settings = Settings()
