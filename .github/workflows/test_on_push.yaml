@@ -25,4 +25,4 @@ jobs:
         # Устанавливаем зависимости
         run: pipenv install --dev
       - name: Run tests
-        run: pytest
+        run: python -m pytest
