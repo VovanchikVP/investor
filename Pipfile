@@ -14,6 +14,7 @@ aiofiles = "23.1.0"
 aiomoex = "2.0.0"
 fastapi-scheduler = "0.0.12"
 aiogram = "2.25.1"
+numpy = "1.26.4"
 
 [dev-packages]
 pytest = "~=7.2.2"
