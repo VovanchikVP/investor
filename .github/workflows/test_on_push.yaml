@@ -21,6 +21,9 @@ jobs:
       - name: Install pipenv
         # Устанавливаем pipenv
         run: pip install pipenv
+      - name: clear pipenv
+        # Чистим pipenv
+        run: pipenv lock --clear
       - name: Install requirements
         # Устанавливаем зависимости
         run: pipenv install --dev
