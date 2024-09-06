@@ -21,11 +21,8 @@ jobs:
       - name: Install pipenv
         # Устанавливаем pipenv
         run: pip install pipenv
-      - name: clear pipenv
-        # Чистим pipenv
-        run: pip install pytest
       - name: Install requirements
         # Устанавливаем зависимости
         run: pipenv install --dev
       - name: Run tests
-        run: python -m pytest
+        run: pipenv run pytest
