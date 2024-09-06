@@ -16,7 +16,7 @@ jobs:
       # Устанавливаем python нужной версии
       - uses: actions/setup-python@v1
         with:
-          python-version: '3.9.6'
+          python-version: '3.9'
       - name: Install pipenv
         # Устанавливаем pipenv
         run: pip install pipenv
